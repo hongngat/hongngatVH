@@ -23,10 +23,17 @@
         width: 100%;
         height: 200px;
       }
+      .section-1 img{
+        height: 300px;
+    }
 }
 @media only screen and (max-width:414px){
     .thumbnail .list-group-image{
         height: 170px;
+
+      }
+      .section-1 img{
+          height: 200px;
       }
 }
 @media only screen and (max-width:375px){
