@@ -1,0 +1,51 @@
+﻿function split(val) {
+    return val.split(/,\s*/);
+}
+function extractLast(term) {
+    return split(term).pop();
+}
+var KoDauChars = 'aaaaaaaaaaaaaaaaaeeeeeeeeeeediiiiiooooooooooooooooouuuuuuuuuuuyyyyyAAAAAAAAAAAAAAAAAEEEEEEEEEEEDIIIOOOOOOOOOOOOOOOOOOOUUUUUUUUUUUYYYYYAADOOU';
+var uniChars = 'àáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆĐÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴÂĂĐÔƠƯ';
+
+function UnicodeToKoDau(input) {
+    //alert(input);
+    var retVal = '';
+    var s = input.split('');
+
+    var arr_KoDauChars = KoDauChars.split('');
+
+    var pos;
+    for (var i = 0; i < s.length; i++) {
+        pos = uniChars.indexOf(s[i]);
+        if (pos >= 0)
+            retVal += arr_KoDauChars[pos];
+        else
+            retVal += s[i];
+    }
+    return retVal;
+}
+
+var cities = ["Hà Nội", "Hà Giang", "Cao Bằng", "Bắc Kạn", "Tuyên Quang", "Lào Cai", "Điện Biên", "Lai Châu", "Sơn La", "Yên Bái", "Hoà Bình", "Thái Nguyên", "Lạng Sơn", "Quảng Ninh", "Bắc Giang", "Phú Thọ", "Vĩnh Phúc", "Bắc Ninh", "Hải Dương", "Hải Phòng", "Hưng Yên", "Thái Bình", "Hà Nam", "Nam Định", "Ninh Bình", "Thanh Hoá", "Nghệ An", "Hà Tĩnh", "Quảng Bình", "Quảng Trị", "Thừa Thiên Huế", "Đà Nẵng", "Quảng Nam", "Quảng Ngãi", "Bình Định", "Phú Yên", "Khánh Hoà", "Ninh Thuận", "Bình Thuận", "Kon Tum", "Gia Lai", "Đắk Lắk", "Đắk Nông", "Lâm Đồng", "Bình Phước", "Tây Ninh", "Bình Dương", "Đồng Nai", "Bà Rịa - Vũng Tàu", "TP Hồ Chí Minh", "Long An", "Tiền Giang", "Bến Tre", "Trà Vinh", "Vĩnh Long", "Đồng Tháp", "An Giang", "Kiên Giang", "Cần Thơ", "Hậu Giang", "Sóc Trăng", "Bạc Liêu", "Cà Mau"];
+var cities2 = [];
+for (var _ic = 0; _ic < cities.length; _ic++) {
+    cities2.push(UnicodeToKoDau(cities[_ic]));
+}
+function insertCity(currentContent) {
+    if ($("#txtaddress" + currentContent).length > 0) {
+        window.setTimeout(function () { insertCity(currentContent); }, 2000);
+    }
+    if ($("#txtaddress" + currentContent).find('option').length == 0) {
+        $("#txtaddress" + currentContent).append('<option value="">Tỉnh / Thành phố</option>');
+        for (var _i = 0; _i < cities.length; _i++) {
+            $("#txtaddress" + currentContent).append('<option value="' + cities[_i] + '">' + cities[_i] + '</option>');
+        }
+    }
+}
+function insertCity2(_obj) {
+    if (_obj.find('option').length == 0) {
+        _obj.append('<option value=""></option>');
+        for (var _i = 0; _i < cities.length; _i++) {
+            $(_obj).append('<option value="' + cities[_i] + '">' + cities[_i] + '</option>');
+        }
+    }
+}

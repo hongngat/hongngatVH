@@ -1,0 +1,56 @@
+(function (w) {
+    var linkOrg = "/ax";
+
+    function not() {
+    };
+
+    function mainSuccess() {
+
+    };
+
+    function DBDN() {
+
+    }
+
+    DBDN.prototype.makeId = function (len) {
+        len = len || 10;
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < len; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
+        return text;
+    };
+
+    DBDN.prototype.loadScript = function (url, cbSuccess, cbFail) {
+        var script = document.createElement('script');
+        script.src = url;
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("async", "async");
+        var head = document.getElementsByTagName('head')[0], done = false;
+        script.onload = script.onreadystatechange = function () {
+            if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                cbSuccess();
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+        script.onerror = function () {
+            cbFail();
+        };
+        head.appendChild(script);
+    };
+    if (!w.dBDN) {
+        w.dBDN = new DBDN();
+    }
+    var bgn = w.bgn;
+    var opt = bgn[0];
+    var mode = 3;
+    var ran = w.dBDN.makeId(7);
+    var link = "//platform.bidgear-dsp.digital" + linkOrg + "?hid=" + opt.hid + "&z=" + opt.z + "&m=" + mode + "&r=" + ran;
+    try {
+        var wu = parent.window.location.href;
+        link += "&wu="+encodeURIComponent(wu);
+    }catch (err){
+        console.log(err.message);
+    }
+    w.dBDN.loadScript(link, mainSuccess, not);
+})(window);

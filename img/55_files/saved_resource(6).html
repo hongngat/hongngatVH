@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://thanhnien.vn/van-hoa/dua-van-hoa-viet-vao-thoi-trang-the-gioi-771572.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./adsbyadbro.js.tải xuống"></script><script>var inDapIF=true,inGptIF=true;</script></head><body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"><div class="GoogleActiveViewInnerContainer" style="left:0px;top:0px;width:100%;height:100%;position:fixed;pointer-events:none;z-index:-9999;"></div><div style="display:inline"><script type="text/javascript">
+(function(w,d,o,u,g){w['adbro']={publisher:g,config:null};a=d.createElement(o),
+m=d.getElementsByTagName(o)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m);})
+(window, document, 'script', '//cdn.adbro.me/adsbyadbro.js', '5582d566-5871-4196-9871-23a56b3bf30b');
+window.adbro.config = {
+    //debug: true,
+    functions: {
+        onPlaceholderSized: function (div, img) {
+            div.style.marginBottom = '-' + img.offsetHeight + 'px';
+            div.style.display = 'block';
+            div.style.marginLeft = 'auto';
+            div.style.marginRight = 'auto';
+            if (img.parentNode.tagName.toLowerCase() == 'a') {
+                img.parentNode.parentNode.insertBefore(div, img.parentNode.nextSibling);
+                div.parentNode.style.height = img.offsetHeight + 'px';
+            }
+        },
+        onInventoryImpression: function (img, div, data) {
+            // Fixing Share and Zoom elements hover behaviour:
+            var style = document.createElement('style');
+            style.innerHTML = '#contentAvatar .fs-icon {display:none !important;}';
+            div.appendChild(style);
+            // Creating element with DFP "Viewed Impression" macro:
+            var pixel = document.createElement('img');
+            pixel.style.cssText = 'width:1px;height:1px;display:none;';
+            pixel.src = 'https://securepubads.g.doubleclick.net/pcs/view?xai=AKAOjsuESU2HGH6TrAzP5PDPuu4BbD2Ut5PfBJVmjp7shAx6Xjv0CLCG-mu3pPVhU03TZzw5TN8042xEANQTffOcMa7Qk9bi9nz6gAZ_6Hw1NJcTKBcGqbT25BJKvQjov5qhLK7IBg7lBInLH8EsSB9IWNAg7W1IoHHt98W8wvr38_4-2gqGRCS9tH8jFlhr9XJuPfTeAHBWB8BKz682pwtJKPJoVv6ZxFTBd0DXA-lRlZ2S7h3xdA5ECXJuLvb3LlKw2-Mi&sig=Cg0ArKJSzPB_fXfTbf9aEAE&urlfix=1&adurl=';
+            div.appendChild(pixel);
+        },
+        getSatellitePlaceholder: function (div) {
+            var block = div.parentNode,
+                satellite = document.createElement('div');
+            while (block.parentNode && block.id != 'contentAvatar') {
+                block = block.parentNode;
+            }
+            satellite.style.margin = '-10px 0 10px 0';
+            block.appendChild(satellite);
+            return satellite;
+        },
+        getImages: function () {
+            var img = window.top.document.querySelector(window.adbro.config.selectors.images);
+            if (img) { return [img]; }
+            else { return []; }
+        }
+    },
+    selectors: {
+        images: '#contentAvatar img.storyavatar'
+    }
+};
+if (window.top.innerWidth < 800) {
+    window.adbro.publisher = '7803eb55-f3ee-4719-95f1-11eece800d89';
+    window.adbro.config.functions.onPlaceholderSized = function (div, img) {
+        div.style.marginBottom = '-' + img.offsetHeight + 'px';
+        div.style.top = '-' + (img.offsetHeight - 1) + 'px';
+        div.style.display = 'block';
+    }
+}
+</script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;z-index:2147483647;background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAWBAMAAACrl3iAAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAB7SURBVBjTbZCLEcAgCEPjBtl/2jZ8At5JrZ76CBHgHScDGrMDGLeaydmJE+gv0/4b/phm1MpNH6+4tSOztY+5zgknDkp1+4ZZWDtNpKiNL98JYSuz0LCtGl3fRW6+Xme6nfrH9b5C62C6ULKPDmYSt+8ewKN3XWY6uI18JEUFb2LSaWMAAAAASUVORK5CYII=&#39;) !important;"></div></body></html>

@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Francois+One&family=Julius+Sans+One&display=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Exo+2&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Anton|Cinzel&display=swap');
+/*font*/
+.font-1{
+  font-family: 'Julius Sans One', sans-serif;
+}
+.font-2{
+  font-family: 'Francois One', sans-serif;
+}
+.font-3{
+  font-family: 'Concert One', cursive;
+}
+/* menu-full-screen*/
+input {
+  display: none;
+}
+
+.open {
+  background-color: #3c3c3c;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+}
+
+.open:before {
+  content: "";
+  background-color: #3c3c3c;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  position: relative;
+  top: -8px;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.open:after {
+  content: "";
+  background-color: #3c3c3c;
+  width: 24px;
+  height: 4px;
+  display: block;
+  border-radius: 2px;
+  position: relative;
+  top: 4px;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.menuOpen {
+  width: 24px;
+  height: 20px;
+  display: block;
+  padding: 15px;
+  cursor: pointer;
+  float: right;
+
+}
+
+.menuOpen:hover .open:before {
+  top: -9px;
+}
+
+.menuOpen:hover .open:after {
+  top: 5px;
+}
+
+.menu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(230, 230, 230, 0.9);
+}
+
+.menu label {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-size: 100%;
+  cursor: pointer;
+  inline-size: 1 !important;
+
+}
+
+.menu .menuContent {
+  position: relative;
+  top: 50%;
+  font-size: 54px;
+  text-align: center;
+  padding-bottom: 20px;
+  margin-top: -170px;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.menu ul li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-family: Trebuchet MS;
+  text-transform: uppercase;
+  padding: 10px 0;
+}
+
+.menu ul li a:hover {
+  color: #ff8702;
+}
+
+
+.menuEffects {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
+  z-index: 2;
+}
+
+.menuEffects ul {
+  transform: translateY(0%);
+  transition: all 0.5s;
+}
+
+#menuToggle:checked ~ .menuEffects {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s;
+}
+
+#menuToggle:checked ~ .menuEffects ul {
+  opacity: 1;
+}
+
+#menuToggle:checked ~ .menuOpen .open {
+  background-color: transparent;
+}
+
+#menuToggle:checked ~ .menuOpen .open:before {
+  content: "";
+  background-color: white;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#menuToggle:checked ~ .menuOpen .open:after {
+  content: "";
+  background-color: white;
+  transform: rotate(-45deg);
+  position: relative;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#menuToggle:not(:checked) ~ .menuEffects ul {
+  transform: translateY(-30%);
+}
+
+
+
+
+/*header-top*/
+
+.nav-menu ul li a{
+    text-decoration: none;
+    font-size: 120%;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+}
+.nav-menu ul li{
+    padding: 10px;
+    margin: 10px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+.header-logo p a{
+    font-size: 150%;
+    text-decoration: none;
+    color: black;
+    font-family: 'Lobster', cursive;
+}
+.header-logo p{
+    padding: 15px;
+}
+.subscribe{
+    font-size: 130%;
+}
+
+
+
+/* section1*/
+.section-1{
+  margin-top: -20%;
+}
+
+/*Section 2*/
+.section-2{
+  background-color:white;margin-top: 3%;
+}
+.section-2 img{
+  width: 100%;
+}
+.title-sec-2 h2{
+  font-family: 'Anton', sans-serif;
+  font-size: 30px;
+  color: #7EB8C8;
+}
+.title-sec-2 p{
+  font-family: 'Exo 2', sans-serif;
+  margin-top: 10%;
+  color: #798595;
+  font-size: 20px;
+}
+.btn-1{
+  margin-top: 5%;
+}
+
+
+
+/*section-4*/
+.section-4{
+  margin-top: 3%;
+}
+.box-sec-4{
+  margin-bottom: 3%;
+}
+.box-sec-4 img{
+  height: 395px;
+}
+.title-sec-box-1{
+  top: 50%;
+  position: absolute;
+  text-overflow: ellipsis;
+
+
+}
+.title-sec-box-1 span a{
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+  text-decoration: none;
+
+}
+.title-sec-box-1 a{
+  color: white;
+}
+.title-sec-box-1{
+  color: white;
+  margin-left: 5%;
+
+}
+.caption h4 a{
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  text-decoration: none;
+}
+.caption p{
+  font-family: 'Exo 2', sans-serif;
+  font-size: 20px;
+  color: #798595;
+ 
+}
+.caption p a{
+  text-decoration: none;
+  color: #798595;
+  font-size: 80%;
+}
+.caption p a i{
+  margin-right: 10px;
+  
+}
+.thumbnail .list-group-image{
+  height: 240px;
+}
+/*section-3*/
+.section-3{
+  background-color:#E6E6E6;
+  margin-top: 3%;
+}
+
+.text-content-sec-3{
+  padding: 40px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 200%;
+}
+.text-title-sec-3{
+  color: white;
+  margin-top: 30px;
+  font-size: 90%;
+  font-weight: bold;
+}
+.bd{
+  width: 10%;
+  height: 5px;
+  background-color: #F5D436;
+  margin-left: 45%;
+
+}
+/*section-5*/
+.section-5{
+  margin-top: 3%;
+  background-color: #E6E6E6;
+}
+.title-sec-5 h1{
+  padding: 5% 0;
+}
+.box-img-sec-5 img{
+  width: 100%;
+}
+.text-sec-5{
+  padding: 5% 0;
+}
+.add-more{
+  padding: 83% 50%;
+  font-size: 200%;
+}
+/*buttom*/
+.btn{
+  margin-left: 40%;
+  margin-top: 30%;
+}
+button {
+  height: 50px;
+  padding: 0 20px;
+  font-size: 20px;
+  color: #222221;
+  cursor: pointer;
+  background-color: #afbbf1;
+  border: 1px solid #1d9af2;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Righteous', cursive;  
+}
+
+button:hover {
+  transform: rotateZ(-30deg);
+}

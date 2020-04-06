@@ -1,0 +1,1 @@
+﻿var videos = [], players = {}; function showvideo(e, o, i, d, n) { showvideofull(e, o, i, d, n, bodywidth) } function showvideofull(e, o, i, d, n, l) { "function" !== typeof playvideo ? videos.push([e, o, i, d, n, l]) : playvideo(e, o, i, d, n, l) } function removeSocial() { document.getElementById("divsocial").remove() }

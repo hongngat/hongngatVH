@@ -1,0 +1,45 @@
+@media only screen and (max-width:1300px){
+    .menu-children{
+        display: none;
+    }
+} 
+@media only screen and (max-width:991px){
+    #primary_nav_wrap{
+        display: none;
+
+    }
+    .img-banner{
+        display: none;
+    }
+    .menu-children{
+        display: block;
+    }
+}
+@media only screen and (max-width:767px){
+    .img-banner-4{
+        display: none;
+    }
+    .img .img-2{
+        width: 100%;
+        height: 200px;
+      }
+}
+@media only screen and (max-width:414px){
+    .thumbnail .list-group-image{
+        height: 170px;
+      }
+}
+@media only screen and (max-width:375px){
+    .header-logo p{
+        font-size: 80%;
+    }
+    .header-top-right p{
+        font-size: 99%;
+    }
+}
+@media only screen and (max-width:320px){
+    .header-logo p{
+        font-size: 60%;
+    }
+
+}

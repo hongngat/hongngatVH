@@ -1,0 +1,382 @@
+﻿function displayUser(data) {
+    if (data.UserId > 0) {
+        if (window.location.pathname.toLowerCase().indexOf('/user/login.html') >= 0) {
+            if (typeof (Storage) !== "undefined") {
+                if (sessionStorage.zaloreturn) {
+                    var ret = sessionStorage.zaloreturn.toString();
+                    sessionStorage.removeItem('zaloreturn');
+                    window.location = ret;
+                    return;
+                } else if (sessionStorage.return) {
+                    var ret2 = sessionStorage.return.toString();
+                    sessionStorage.removeItem('return');
+                    window.location = ret2;
+                    return;
+                }
+            }
+            var hash = window.decodeURIComponent(window.location.hash.replace(/#/, ''));
+            if (hash.indexOf("/") == 0 || hash.indexOf('http') == 0) {
+                window.location = hash + '#logined';
+            } else {
+                window.location = '/user/' + data.UserCode + '.html';
+            }
+        }
+
+        //$('#userprofile > a').addClass('logined').attr('href', '/user/' + data.UserCode + '.html').html('<i class="icon-user"></i><span>' + data.FullName + '</span>');
+        $('#userprofile').addClass('logined').html('<a href="javascript:void(0);" class="parent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user"></i><span>' + data.FullName + '</span></a>' + 
+            '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><ul class="user__dropdown">' +
+            '<li><a href="' + ('/user/' + data.UserCode + '.html')+'" class="menu-profile">Thông tin cá nhân</a></li>' +
+            '<li><a href="' + ('/user/' + data.UserCode + '.html') +'#pass" class="menu-pass">Đổi mật khẩu</a></li>' +
+            '<li><a href="' + ('/user/' + data.UserCode + '.html') +'#activities" class="menu-activities">Hoạt động của tôi</a></li>' +
+            '<li><a href="javascript:void(0);" class="logout">Đăng xuất</a></li>' +
+            '</ul></div>');
+        bindUserEvent();
+        $('#st-container > nav').remove();
+        $('#st-container').removeClass('st-menu-open');
+    }
+
+    if ("function" === typeof showprofiledetail) {
+        showprofiledetail(data);
+    }
+    if ("function" === typeof logeventtno) {
+        logeventtno(data);
+    }
+}
+function checkLogin() {
+    $.ajax({
+        url: loghost + (window.location.pathname.indexOf('/user/') == 0 ? "/client/detail.html" : "/client/info.html"),
+        type: "GET",
+        dataType: "jsonp",
+        jsonp: "callback",
+        success: function (data) {
+            displayUser(data);
+            $('#userprofile').show();
+            var d = new Date(data.ServerTime);
+            d.setHours(d.getHours() - 7);
+            currenttime = d;
+            if ("function" === typeof updatetime) {
+                updatetime();
+            }
+        }
+    });
+}
+function bindUserEvent() {
+    //$('#userprofile .parent').click(function (e) { e.preventDefault(); $('#userprofile').toggleClass('open'); });
+    $('#userprofile .logout').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: loghost + "/client/logout.html",
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "callback",
+            success: function (data) {
+                alert('Cảm ơn bạn đã dùng dịch vụ của Thanh Niên Online!');
+                window.location = window.location.toString().replace(window.location.hash, '');
+            }
+        });
+    });
+    if ($('#user_tab').length > 0) {
+        $('#userprofile a').click(function (e) {
+            if ($(this).hasClass('menu-profile')) {
+                e.preventDefault(); e.stopPropagation();
+                $('#tabProfile').click();
+            } else if ($(this).hasClass('menu-pass')) {
+                $('#tabPass').click();
+            } else if ($(this).hasClass('menu-activities')) {
+                $('#tabActivities').click();
+            }
+        });
+    }
+    
+}
+var userCaptchaContainer = null;
+function bindEvent() {
+    if (userCaptchaContainer == null) {
+        userCaptchaContainer = grecaptcha.render('userCaptchaContainer', {
+            'sitekey': '6Lci1RATAAAAACC1Aww1IZrkmX3e9MvFPevnhXW6',
+            'callback': function (response) { }
+        });
+    } else {
+        grecaptcha.reset(userCaptchaContainer);
+    }
+    //main login
+    $('#socialsignin > a').click(function (e) {
+        e.preventDefault();
+        if ($(this).hasClass('social--fb')) {
+            FB.login(function (rp) {
+                if (rp.status === 'connected') {
+                    var user_id = rp.authResponse.userID;
+                    var token = rp.authResponse.accessToken;
+
+                    $.ajax({
+                        url: loghost + "/client/login.html",
+                        data: { type: 'fb', uid: user_id, token: token },
+                        type: "GET",
+                        dataType: "jsonp",
+                        jsonp: "callback",
+                        success: function (data) {
+                            displayUser(data);
+                            if (data.UserId <= 0) {
+                                switch (data.Error) {
+                                    case "nouserfb": alert('Tài khoản không tồn tại hoặc bị khóa!'); break;
+                                    default: alert('Có lỗi xảy ra!'); break;
+                                }
+                            }
+                        }
+                    });
+
+                }
+            }, { scope: 'public_profile,email' });
+        } else if ($(this).hasClass('social--gg')) {
+            //do nothing
+        } else if ($(this).hasClass('social--zl')) {
+            $('#zaloFrame').attr('src', 'https://oauth.zaloapp.com/v3/auth?app_id=624160818882795756&redirect_uri=' + window.encodeURIComponent(loghost + '/client/login.html?type=zl') + '&state=' + window.encodeURIComponent(window.location.host));
+            $('#zaloModal').modal();
+            //if (typeof (Storage) !== "undefined") {
+            //    sessionStorage.zaloreturn = window.location.toString();
+            //    if ($('#txtcontent').length > 0 && $('#txtcontent').val() != '') {
+            //        sessionStorage.zaloComment = $('#txtcontent').val();
+            //    }
+            //}
+            //window.location = 'https://oauth.zaloapp.com/v3/auth?app_id=624160818882795756&redirect_uri=' + window.encodeURIComponent(loghost + '/client/login.html?type=zl') + '&state=' + window.encodeURIComponent(window.location.host);
+
+        }
+    });
+    gapi.load('auth2', function () {
+        var ggauth2 = gapi.auth2.init({
+            client_id: '385329198697-bo7sppo1lnde3bhv6l6av072flc56mqb.apps.googleusercontent.com',
+            scope: 'profile email'
+        });
+        ggauth2.attachClickHandler(document.getElementById('ggauthen'), {},
+            function (user) {
+                //console.log(user)
+                var gmId = user.getBasicProfile().getId();
+                var gmToken = user.getAuthResponse().id_token;
+                $.ajax({
+                    url: loghost + "/client/login.html",
+                    data: { type: 'gg', uid: gmId, token: gmToken },
+                    type: "GET",
+                    dataType: "jsonp",
+                    jsonp: "callback",
+                    success: function (data) {
+                        displayUser(data);
+                        if (data.UserId <= 0) {
+                            switch (data.Error) {
+                                case "nousergg": alert('Tài khoản không tồn tại hoặc bị khóa!'); break;
+                                default: alert('Có lỗi xảy ra!'); break;
+                            }
+                        }
+                    }
+                });
+            }, function (error) {
+                console.log(error);
+            });
+    });
+    $('#signinEmail').focus(function (e) {
+        $('#signinLogin').removeClass('inactive');
+    });
+    $('#signinEmail').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#signinLogin').click();
+        }
+    });
+    $('#usersigninpass').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#usersigninbtn').click();
+        }
+    });
+    $('#userregname,#userregpass,#userregphone').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#userregbtn').click();
+        }
+    });
+    $('#signinLogin').click(function (e) {
+        e.preventDefault();
+        var email = $('#signinEmail').val();
+        if (email == '' || !validateEmail(email)) {
+            alert('Bạn vui lòng nhập email!'); return;
+        }
+        grecaptcha.execute('6LeeTowUAAAAABMbhzdzhc-NFn_89M69okIeT0Nx', { action: 'login' }).then(function (captcha) {
+            $.ajax({
+                url: loghost + "/client/login.html",
+                data: { type: 'user', uid: email, captcha: captcha },
+                type: "GET",
+                dataType: "jsonp",
+                jsonp: "callback",
+                success: function (data) {
+                    switch (data.Error) {
+                        case "userrevalidate": alert('Bạn vui lòng bấm vào link xác thực trong email!\nVui lòng kiểm tra mục thư rác (spam) nếu không tìm thấy email xác nhận.'); return;
+                        case "nouserlogin": alert('Tài khoản không tồn tại hoặc bị khóa!'); return;
+                        case "other": alert('Có lỗi xảy ra!'); break;
+                        default: break;
+                    }
+                    $('#socialsigninbox,#userregbox,#usersigninbox').addClass('hidden');
+                    if (data.UserId > 0) {
+                        $('#usersigninbox').removeClass('hidden');
+                        $('#usersigninemail').html(data.Email);
+                        $('#usersigninpass').focus();
+                    } else {
+                        $('#userregbox').removeClass('hidden');
+                        $('#userregemail').html(data.Email);
+                        $('#userregname').focus();
+                    }
+                }
+            });
+        });
+    });
+    $('#btnlostpass').click(function (e) {
+        e.preventDefault();
+        var email = $('#signinEmail').val();
+        if (email == '' || !validateEmail(email)) {
+            alert('Bạn vui lòng nhập email!'); return;
+        }
+        grecaptcha.execute('6LeeTowUAAAAABMbhzdzhc-NFn_89M69okIeT0Nx', { action: 'login' }).then(function (captcha) {
+            $.ajax({
+                url: loghost + "/client/lostpass.html",
+                data: { user: email, captcha: captcha },
+                type: "GET",
+                dataType: "jsonp",
+                jsonp: "callback",
+                success: function (data) {
+                    if (data.UserId > 0) {
+                        alert('Hệ thống vừa gửi mail khôi phục mật khẩu cho bạn. Vui lòng kiểm tra hòm thư và làm theo hướng dẫn.\nVui lòng kiểm tra mục thư rác (spam) nếu không tìm thấy email.');
+                    } else {
+                        switch (data.Error) {
+                            case "passnouser":
+                            case "passnologin": alert('Không tìm thấy tài khoản trong hệ thống.'); break;
+                            case "passemail": alert('Bạn vui lòng nhập email!'); break;
+                            case "passrecent": alert('Bạn vừa sử dụng chức năng này gần đây. Xin vui lòng thử lại sau 5 phút!'); break;
+                            default: alert('Có lỗi xảy ra!'); break;
+                        }
+                    }
+                }
+            });
+        });
+        
+    });
+
+    $('#userregreset, #usersigninreset').click(function (e) {
+        e.preventDefault();
+        $('#userregbox,#usersigninbox').addClass('hidden');
+        $('#socialsigninbox').removeClass('hidden');
+    });
+
+    $('#chkusersigninpass, #chkuserregpass').change(function () {
+        if ($(this).is(':checked')) {
+            $('#' + $(this).attr('id').replace('chk', '')).attr('type', 'text');
+        } else {
+            $('#' + $(this).attr('id').replace('chk', '')).attr('type', 'password');
+        }
+    });
+
+    $('#usersigninbtn').click(function (e) {
+        e.preventDefault();
+        var email = $('#signinEmail').val();
+        if (email == '' || !validateEmail(email)) {
+            alert('Bạn vui lòng nhập email!'); return;
+        }
+        var pass = $('#usersigninpass').val();
+        if (pass == '') {
+            alert('Bạn vui lòng nhập mật khẩu dài từ 6 ký tự trở lên!'); return;
+        }
+        grecaptcha.execute('6LeeTowUAAAAABMbhzdzhc-NFn_89M69okIeT0Nx', { action: 'login' }).then(function (captcha) {
+            $.ajax({
+                url: loghost + "/client/login.html",
+                data: { type: 'user', uid: email, token: pass, captcha: captcha },
+                type: "GET",
+                dataType: "jsonp",
+                jsonp: "callback",
+                success: function (data) {
+                    if (data.UserId > 0) { displayUser(data); }
+                    else {
+                        switch (data.Error) {
+                            case "userwrongpass": alert('Mật khẩu không chính xác!'); break;
+                            default: alert('Có lỗi xảy ra!'); break;
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    $('#userregbtn').click(function (e) {
+        e.preventDefault();
+        var email = $('#signinEmail').val();
+        if (email == '' || !validateEmail(email)) {
+            alert('Bạn vui lòng nhập email!'); return;
+        }
+        var pass = $('#userregpass').val();
+        if (pass == '' || pass.length < 6) {
+            alert('Bạn vui lòng chọn mật khẩu dài từ 6 ký tự trở lên!'); return;
+        }
+        var name = $('#userregname').val();
+        if (name == '') {
+            alert('Bạn vui lòng nhập tên hiển thị!'); return;
+        }
+        var phone = $('#userregphone').val();
+
+        
+        //grecaptcha.execute('6LeeTowUAAAAABMbhzdzhc-NFn_89M69okIeT0Nx', { action: 'login' }).then(function (captcha) {
+        var captcha = grecaptcha.getResponse(userCaptchaContainer);
+            $.ajax({
+                url: loghost + "/client/register.html",
+                data: { user: email, pass: pass, name: name, phone: phone, captcha: captcha },
+                type: "GET",
+                dataType: "jsonp",
+                jsonp: "callback",
+                success: function (data) {
+                    if (data.UserId > 0) {
+                        //displayUser(data);
+                        alert('Bạn đã đăng ký thành công, vui lòng bấm vào link xác nhận trong email! Xin cảm ơn!\nVui lòng kiểm tra mục thư rác (spam) nếu không tìm thấy email xác nhận.');
+                        $('#st-container > nav').remove();
+                        $('#st-container').removeClass('st-menu-open');
+                    }
+                    else {
+                        switch (data.Error) {
+                            case "regusernoinfo": alert('Bạn chưa nhập đủ thông tin!'); break;
+                            case "reguseremail": alert('Bạn vui lòng nhập email!'); break;
+                            case "reguserexisted": alert('Email đang được sử dụng!'); break;
+                            case "reguserregisterdb":
+                            default: alert('Có lỗi xảy ra!'); break;
+                        }
+                        grecaptcha.reset(userCaptchaContainer);
+                    }
+                }
+            //});
+        });
+    })
+}
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+function showLoginSidebar(effect) {
+    $('#st-container').attr('class', 'st-container ' + effect);
+    window.setTimeout(function () {$('#st-container').addClass('st-menu-open');}, 25);
+    $(document).click(function (evt) {
+        if ($(evt.target).parents('.close').length > 0 || $(evt.target).parents('.st-menu').length == 0) {
+            $('#st-container').removeClass('st-menu-open');
+            $(document).off(evt);
+        }
+    });
+}
+$(document).ready(function () {
+    checkLogin();
+    $('#userprofile > a').click(function (e) {
+        if ($('#userprofile').hasClass('logined')) return;
+        e.preventDefault(); e.stopPropagation();
+        var effect = $(this).attr('data-effect');
+        if ($('#st-container > nav').length == 0) {
+            $.ajax({ url: "/client/login.html?1" }).done(function (msg) {
+                $('#st-container').prepend(msg);
+                bindEvent();
+                showLoginSidebar(effect);
+            });
+        } else {
+            showLoginSidebar(effect);
+        }
+    })
+});
