@@ -1,0 +1,140 @@
+@media only screen and (max-width:767px){
+    .toggle{
+        font-size: 23px;
+    }
+    .language img{
+        width: 70%;
+    }
+    .img-section-1{
+        text-align: center;
+    }
+    .menu-title ul li a{
+        font-size: 16px;
+    }
+    .title-2 h2 a{
+        font-size: 60%;
+    }
+    .title-sec-1 h4{
+        font-size: 17px;
+    }
+    .title-sec-1 p{
+        font-size: 12px;
+    }
+    .img-section-1 img{
+        width: 30%;
+    }
+    .title-sec-box-2 span a{
+        font-size: 15px;
+      
+      }
+      .title-sec-box-2 h2{
+          font-size: 20px;
+      }
+      .title-sec-box-2 p a{
+          font-size: 13px;
+      }
+      .thumbnail .list-group-image{
+        height: 200px;
+      }
+      .caption .list-group-item-text{
+          font-size: 18px;
+      }
+      .caption .h4 a{
+        font-size: 15px;
+      }
+      .swiper-slide {
+        width: 250px;
+        height: 350px;
+
+    }
+    .text-title-sec-3{
+        font-size: 70%;
+      }
+      .text-content-sec-3{
+          font-size: 15px;
+      }
+      .title-sec-3 h3{
+          font-size: 16px;
+      }
+      
+}
+@media only screen and (max-width:741px){
+    .menu-title ul li a{
+        font-size: 13px;
+    }
+    .menu-title ul li{
+        margin-right: 1px;
+    }
+}
+
+@media only screen and (max-width:444px){
+    .menu-title ul li a{
+        font-size: 12px;
+    }
+    .menu-title ul li{
+        margin-right: none;
+    }
+}
+@media only screen and (max-width:444px){
+    .menu-title{
+        display: none;
+    }
+    .box-sec-2 img{
+        height: 240px;
+    }
+    .title-sec-box-2 span a{
+        font-size: 15px;
+    }
+    .title-sec-box-2 h2{
+        font-size: 20px;
+    }
+    .title-sec-box-2 p a{
+        font-size: 13px;
+    }
+    .thumbnail .list-group-image{
+        height: 100px;
+      }
+    .caption p a{
+        font-size: 10px;
+    }
+    .caption h4 a{
+        font-size: 70%;
+    }
+    .caption > p{
+        font-size: 13px;
+    }
+    
+}
+@media only screen and (max-width:411px){
+    .header-top-right li{
+        margin-right:0px ;
+    }
+    .header-logo{
+        padding-top: 5px;
+        padding-left: 5px;
+    }
+    .header-top-right {
+        margin: 0 auto;
+    }
+    .language img{
+        width: 50%;
+    }
+    .toggle{
+        font-size: 20px;
+    }
+    
+}
+@media only screen and (max-width:375px){
+   
+}
+@media only screen and (max-width:320px){
+    .header-top-right li p{
+        font-size: 80%;
+    }
+    .banner{
+        margin-top: -30px;
+    }
+    .glyphicon-search{
+        font-size: 80%;
+    }
+}
