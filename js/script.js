@@ -17,6 +17,7 @@ function openNav() {
         interval: 5000
     })
 });
+/*search-header */
 
 /*slide-banner */
 window.jssor_1_slider_init = function() {

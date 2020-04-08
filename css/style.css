@@ -173,7 +173,7 @@
         margin-bottom: 3%;
       }
       .box-sec-2 img{
-        height: 379px;
+        height: 370px;
       }
       .title-sec-box-2{
         top: 50%;
@@ -200,7 +200,7 @@
         font-size: 15px;
         text-decoration: none;
       }
-      .caption p{
+      .caption .list-group-item-text{
         font-family: 'Exo 2', sans-serif;
         font-size: 20px;
         color: #798595;
@@ -350,11 +350,6 @@
     }
     .carousel-control {
         left: -12px;
-        height: 40px;
-        width: 40px;
-        background: none repeat scroll 0 0 #222222;
-        border: 4px solid #FFFFFF;
-        border-radius: 23px 23px 23px 23px;
         margin-top: 90px;
     }
     .carousel-control.right {
@@ -376,6 +371,12 @@
     .img-bottom img{
         width: 490px;
         height: 200px;
+    }
+    .img-bottom p{
+      margin:3px 0 !important;
+    }
+    .img-bottom h5{
+      margin:3px 0 !important;
     }
     /*footer*/
 
