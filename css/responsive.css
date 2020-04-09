@@ -1,3 +1,9 @@
+
+@media only screen and (max-width:1200px){
+    .video video{
+        width: 450px;
+      }
+}
 @media only screen and (max-width:991px){
     .img-container{
         width: 150px;
@@ -86,6 +92,9 @@
      .img-bottom p{
          font-size: 80%;
      }
+     .title-main{
+        margin-bottom: 5px;
+    }
 }
 @media only screen and (max-width:741px){
     .menu-title ul li a{
@@ -140,6 +149,10 @@
     .img-bottom p{
         font-size: 70%;
     }
+    .video video{
+        width: 350px;
+        height: 200px;
+      }
 }
 @media only screen and (max-width:444px){
     .menu-title ul li a{
@@ -271,6 +284,10 @@
     .title-library a{
         font-size: 80%;
     }
+    .video video{
+        width: 300px;
+        height: 180px;
+      }
 }
 @media only screen and (max-width:320px){
     .header-top-right li p{
@@ -303,5 +320,15 @@
     }
     .thumbnail .list-group-image{
         height: 80px;
+      }
+      .video video{
+        width: 250px;
+        height: 150px;
+      }
+}
+@media only screen and (max-width:270px){
+    .video video{
+        width: 200px;
+        height: 100px;
       }
 }
